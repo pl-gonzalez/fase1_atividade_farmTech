@@ -24,3 +24,20 @@ desvio_ins_litros = sd(lavouras$ins_litros)
 media_ruas = mean(lavouras$ruas)
 mediana_ruas = median(lavouras$ruas)
 desvio_ruas = sd(lavouras$ruas)
+
+print(media_area)
+print(mediana_area)
+print(desvio_area)
+
+print(media_qtd_insumo)
+print(mediana_qtd_insumo)
+print(desvio_qtd_insumo)
+
+print(media_ins_litros)
+print(mediana_ins_litros)
+print(desvio_ins_litros)
+
+print(media_ruas)
+print(mediana_ruas)
+print(desvio_ruas)
+
