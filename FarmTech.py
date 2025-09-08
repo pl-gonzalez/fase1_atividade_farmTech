@@ -1,3 +1,5 @@
+import os
+
 area_milho = []
 area_cana = []
 lavouras = [
@@ -6,7 +8,15 @@ lavouras = [
         'area': 15129.0,
         'insumo': 'Calcio',
         'qnt_insumo': 12, 
-        'qnt_litros': 181.548}
+        'qnt_litros': 181.548
+    },
+    {
+        'cultura': 'milho', 
+        'area': 65840.0,
+        'insumo': 'Fosfato',
+        'qnt_insumo': 75, 
+        'qnt_litros': (75*65840)/1000
+    }
 ]
 
 while True:
@@ -22,7 +32,10 @@ while True:
 
     user = int(input("\nDigite a opção desejada:\t"))
 
+
+    # Inserir dados
     if(user == 1):
+        os.system('cls')
 
         cultura = input("Digite o nome da cultura:\t")
         comprimento = float(input("Qual o comprimento da lavoura? \t"))
@@ -38,7 +51,7 @@ while True:
 
         qnt_litros = (qnt_insumo * area) / 1000
 
-        # Arredondar valores
+        
         print(f"\n\nSerá pulverizado ao todo {round(qnt_litros, 3)} litros de {insumo}, em todo os {area} m²")
 
         lavouras.append({
@@ -49,38 +62,63 @@ while True:
             "qnt_litros":qnt_litros
         })
 
-        
+    # Visualizar dados
     elif(user == 2):
         if not lavouras:
             print("Nao há lavouras cadastradas")
-        # da p estilizar
+   
         else:
-            for lavoura in lavouras:
-                print(lavoura)
+            os.system('cls')
 
+            for i,lavoura in enumerate(lavouras):
+                print(f"Indice -> {i} \nCultura: \t{lavoura["cultura"].capitalize()}")
+                print(f"Area da lavoura: \t{lavoura["area"]}")
+                print(f"Insumo:\t {lavoura["insumo"].capitalize()}")
+                print(f"Quantidade do insumo (mL/metro):\t {lavoura["qnt_insumo"]}")
+                print(f"Total de insumo usado em Litros:\t {lavoura["qnt_litros"]}\n\n")
 
+    # Atualizar dados
     elif(user == 3):
-        # Pode ser visualizado os dados antes de esoclher. Ajuda a lembrar
+        os.system('cls')
+       
+        for i,lavoura in enumerate(lavouras):
+                print(f"Indice -> {i} \nCultura: \t{lavoura["cultura"].capitalize()}")
+                print(f"Area da lavoura: \t{lavoura["area"]}")
+                print(f"Insumo:\t {lavoura["insumo"].capitalize()}")
+                print(f"Quantidade do insumo (mL/metro):\t {lavoura["qnt_insumo"]}")
+                print(f"Total de insumo usado em Litros:\t {lavoura["qnt_litros"]}\n\n")
+
         id_lavoura = int(input("Digite o indice da lavoura: \t"))
         campo = input("Digite o campo a editar: \t")
         novo_valor = input("Digite o novo valor: \t")
 
-        # Formatar prints
+        
         if 0 <= id_lavoura < len(lavouras):
             lavouras[id_lavoura][f"{campo}"] = novo_valor
-            print(f"Aluno ID {id_lavoura} atualizado para {novo_valor} anos.")
+            os.system('cls')
+            print(f"Lavoura ID {id_lavoura} atualizado para {novo_valor}.")
         else:
-            print("ID de aluno inválido.")
+            print("ID de lavoura inválido.")
             
-        
+    # Deletar dados
     elif(user == 4):
+        os.system('cls')
+        
+        for i,lavoura in enumerate(lavouras):
+                print(f"Indice -> {i} \nCultura: \t{lavoura["cultura"].capitalize()}")
+                print(f"Area da lavoura: \t{lavoura["area"]}")
+                print(f"Insumo:\t {lavoura["insumo"].capitalize()}")
+                print(f"Quantidade do insumo (mL/metro):\t {lavoura["qnt_insumo"]}")
+                print(f"Total de insumo usado em Litros:\t {lavoura["qnt_litros"]}\n\n")
+
         id_lavoura = int(input("Digite o indice da lavoura: \t"))
         if 0 <= id_lavoura < len(lavouras):
             lavoura_removida = lavouras.pop(id_lavoura)
-            print(f"Aluno {lavoura_removida["cultura"]} removido com sucesso.")
+            os.system('cls')
+            print(f"Lavoura de {lavoura_removida["cultura"].capitalize()} removido com sucesso.")
         else:
-            print("ID de aluno inválido.")
-
+            print("ID de lavoura inválido.")
+    # Sair
     elif(user == 5):
         break
 
