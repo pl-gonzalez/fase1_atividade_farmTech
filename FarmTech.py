@@ -1,25 +1,28 @@
 import os
+import pandas as pd
 
-area_milho = []
-area_cana = []
 lavouras = [
-    {
-        'cultura': 'cafe', 
-        'area': 15129.0,
-        'insumo': 'Calcio',
-        'qnt_insumo': 12, 
-        'qnt_litros': 181.548
-    },
-    {
-        'cultura': 'milho', 
-        'area': 65840.0,
-        'insumo': 'Fosfato',
-        'qnt_insumo': 75, 
-        'qnt_litros': (75*65840)/1000
-    }
+    # {
+    #     'cultura': 'cafe', 
+    #     'area': 15129.0,
+    #     'insumo': 'Calcio',
+    #     'qnt_insumo': 12, 
+    #     'qnt_litros': 181.548
+    # },
+    # {
+    #     'cultura': 'milho', 
+    #     'area': 65840.0,
+    #     'insumo': 'Fosfato',
+    #     'qnt_insumo': 75, 
+    #     'qnt_litros': (75*65840)/1000
+    # }
 ]
 
+path_csv = "./output.csv"
+
 while True:
+    os.system('cls')
+
     print("===== FarmTech Solutions =====")
     
     print("1 - Inserir Dados")
@@ -57,67 +60,83 @@ while True:
         lavouras.append({
             "cultura":cultura,
             "area":area,
+            "ruas":ruas,
             "insumo":insumo,
             "qnt_insumo":qnt_insumo,
             "qnt_litros":qnt_litros
         })
 
+        if os.path.exists(path_csv):
+            df = pd.read_csv(path_csv)
+
+            df_novo = pd.DataFrame(lavouras)
+            df_appended = pd.concat([df, df_novo], ignore_index=True)
+
+            df_appended.to_csv(path_csv, index=False)
+        
+        else:
+            df = pd.DataFrame(lavouras)
+            df.to_csv(path_csv, index=False)
+            
+        
+
+        
+
+        input("\n\nPressione qualquer tecla para continuar\n")
+        # print(df)
+
+
+
+
     # Visualizar dados
     elif(user == 2):
-        if not lavouras:
-            print("Nao há lavouras cadastradas")
+        os.system('cls')
+        if os.path.exists(path_csv):
+            df = pd.read_csv(path_csv)
+
+            if not df.empty:
+                print(df)
+
+            else:
+                print("Não foram cadastradas lavouras")
    
         else:
-            os.system('cls')
-
-            for i,lavoura in enumerate(lavouras):
-                print(f"Indice -> {i} \nCultura: \t{lavoura["cultura"].capitalize()}")
-                print(f"Area da lavoura: \t{lavoura["area"]}")
-                print(f"Insumo:\t {lavoura["insumo"].capitalize()}")
-                print(f"Quantidade do insumo (mL/metro):\t {lavoura["qnt_insumo"]}")
-                print(f"Total de insumo usado em Litros:\t {lavoura["qnt_litros"]}\n\n")
+            print("Não foram cadastradas lavouras")
+        
+        input("\n\nPressione qualquer tecla para continuar\n")
 
     # Atualizar dados
     elif(user == 3):
         os.system('cls')
-       
-        for i,lavoura in enumerate(lavouras):
-                print(f"Indice -> {i} \nCultura: \t{lavoura["cultura"].capitalize()}")
-                print(f"Area da lavoura: \t{lavoura["area"]}")
-                print(f"Insumo:\t {lavoura["insumo"].capitalize()}")
-                print(f"Quantidade do insumo (mL/metro):\t {lavoura["qnt_insumo"]}")
-                print(f"Total de insumo usado em Litros:\t {lavoura["qnt_litros"]}\n\n")
 
+        if os.path.exists(path_csv):
+            df = pd.read_csv(path_csv)
+            print(df)
+         
         id_lavoura = int(input("Digite o indice da lavoura: \t"))
         campo = input("Digite o campo a editar: \t")
         novo_valor = input("Digite o novo valor: \t")
 
-        
-        if 0 <= id_lavoura < len(lavouras):
-            lavouras[id_lavoura][f"{campo}"] = novo_valor
-            os.system('cls')
-            print(f"Lavoura ID {id_lavoura} atualizado para {novo_valor}.")
-        else:
-            print("ID de lavoura inválido.")
+        df.loc[id_lavoura, campo] = novo_valor
+
+        df.to_csv(path_csv, index=False)
+
+        input("\n\nPressione qualquer tecla para continuar\n")
             
     # Deletar dados
     elif(user == 4):
         os.system('cls')
-        
-        for i,lavoura in enumerate(lavouras):
-                print(f"Indice -> {i} \nCultura: \t{lavoura["cultura"].capitalize()}")
-                print(f"Area da lavoura: \t{lavoura["area"]}")
-                print(f"Insumo:\t {lavoura["insumo"].capitalize()}")
-                print(f"Quantidade do insumo (mL/metro):\t {lavoura["qnt_insumo"]}")
-                print(f"Total de insumo usado em Litros:\t {lavoura["qnt_litros"]}\n\n")
 
-        id_lavoura = int(input("Digite o indice da lavoura: \t"))
-        if 0 <= id_lavoura < len(lavouras):
-            lavoura_removida = lavouras.pop(id_lavoura)
-            os.system('cls')
-            print(f"Lavoura de {lavoura_removida["cultura"].capitalize()} removido com sucesso.")
-        else:
-            print("ID de lavoura inválido.")
+        if os.path.exists(path_csv):
+            df = pd.read_csv(path_csv)
+            print(df)
+            
+            id_lavoura = int(input("Digite o indice da lavoura: \t"))
+            df_del = df.drop(id_lavoura)
+
+            df_del.to_csv(path_csv, index=False)
+        
+        input("\n\nPressione qualquer tecla para continuar\n")
     # Sair
     elif(user == 5):
         break
