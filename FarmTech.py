@@ -66,17 +66,17 @@ while True:
             "qnt_litros":qnt_litros
         })
 
-        if os.path.exists(path_csv):
-            df = pd.read_csv(path_csv)
+        # if os.path.exists(path_csv):
+        #     df = pd.read_csv(path_csv)
 
-            df_novo = pd.DataFrame(lavouras)
-            df_appended = pd.concat([df, df_novo], ignore_index=True)
+        #     df_novo = pd.DataFrame(lavouras)
+        #     df_appended = pd.concat([df, df_novo], ignore_index=True)
 
-            df_appended.to_csv(path_csv, index=False)
+        #     df_appended.to_csv(path_csv, index=False)
         
-        else:
-            df = pd.DataFrame(lavouras)
-            df.to_csv(path_csv, index=False)
+        # else:
+        df = pd.DataFrame(lavouras)
+        df.to_csv(path_csv, index=False)
             
         
 
