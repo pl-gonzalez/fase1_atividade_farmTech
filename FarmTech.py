@@ -82,7 +82,7 @@ while True:
 
         
 
-        input("\n\nPressione qualquer tecla para continuar\n")
+        input("\n\nPressione Enter para continuar\n")
         # print(df)
 
 
@@ -103,7 +103,7 @@ while True:
         else:
             print("Não foram cadastradas lavouras")
         
-        input("\n\nPressione qualquer tecla para continuar\n")
+        input("\n\nPressione Enter para continuar\n")
 
     # Atualizar dados
     elif(user == 3):
@@ -111,17 +111,24 @@ while True:
 
         if os.path.exists(path_csv):
             df = pd.read_csv(path_csv)
-            print(df)
-         
-        id_lavoura = int(input("Digite o indice da lavoura: \t"))
-        campo = input("Digite o campo a editar: \t")
-        novo_valor = input("Digite o novo valor: \t")
 
-        df.loc[id_lavoura, campo] = novo_valor
+            if not df.empty:
+                print(df)
 
-        df.to_csv(path_csv, index=False)
+                id_lavoura = int(input("Digite o indice da lavoura: \t"))
+                campo = input("Digite o campo a editar: \t")
+                novo_valor = input("Digite o novo valor: \t")
 
-        input("\n\nPressione qualquer tecla para continuar\n")
+                df.loc[id_lavoura, campo] = novo_valor
+
+                df.to_csv(path_csv, index=False)
+            else:
+                print("Não foram cadastradas lavouras")
+
+        else:
+            print("Não foram cadastradas lavouras")
+
+        input("\n\nPressione Enter para continuar\n")
             
     # Deletar dados
     elif(user == 4):
@@ -129,14 +136,21 @@ while True:
 
         if os.path.exists(path_csv):
             df = pd.read_csv(path_csv)
-            print(df)
             
-            id_lavoura = int(input("Digite o indice da lavoura: \t"))
-            df_del = df.drop(id_lavoura)
+            if not df.empty:
+                print(df)
+            
+                id_lavoura = int(input("Digite o indice da lavoura: \t"))
+                df_del = df.drop(id_lavoura)
 
-            df_del.to_csv(path_csv, index=False)
+                df_del.to_csv(path_csv, index=False)
+
+            else:
+                print("Não foram cadastradas lavouras")
+        else:
+            print("Não foram cadastradas lavouras")
         
-        input("\n\nPressione qualquer tecla para continuar\n")
+        input("\n\nPressione Enter para continuar\n")
     # Sair
     elif(user == 5):
         break
